@@ -1,0 +1,30 @@
+.leftLabel {
+	float : right;
+	width : 50px;
+	border : 0;
+	background-color : rgba(0, 0, 0, 0);
+}
+.leftDiv {
+	width : 100px;
+}
+
+.textAreaDiv {
+	width : 90%;
+	margin : 10px auto;
+}
+.thoughtEdit {
+	font : 15px "楷体",normal;
+	display : inline-block;
+	width : 100%;
+	border : 1px solid #C7C7C8;
+	border-radius : 5px;
+}
+
+.visibility {
+	margin : 5px 15px;
+}
+.visibility select {
+	height : 22px;
+	line-height : 22px;
+	border-radius : 3px;
+}

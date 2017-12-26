@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tengyun.modules.sys.user.dao.UserDao">
+	<resultMap type="com.tengyun.modules.sys.user.entity.User" id="BaseResultMap">
+		<id property="id" column="id" />
+		<result property="loginName" column="login_name" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="userType" column="user_type" />
+		<result property="photo" column="photo" />
+		<result property="loginIp" column="login_ip" />
+		<result property="loginDate" column="login_date" />		
+		<result property="createBy" column="create_by" />
+		<result property="createDate" column="create_date" />
+		<result property="updateBy" column="update_by" />
+		<result property="updateDate" column="update_date" />
+		<result property="remarks" column="remarks" />
+		<result property="state" column="state" />
+	</resultMap>
+
+	<sql id="splicingField">
+		<trim suffix="" suffixOverrides=",">
+			<if test="loginName != null and loginName !=''">
+				login_name ,
+			</if>
+			<if test="password != null and password !=''">
+				password ,
+			</if>
+			<if test="name != null and name !=''">
+				name ,
+			</if>
+			<if test="email != null and email !=''">
+				email ,
+			</if>
+			<if test="phone != null and phone !=''">
+				phone ,
+			</if>
+			<if test="userType != null and userType !=''">
+				user_type ,
+			</if>
+			<if test="photo != null and photo !=''">
+				photo ,
+			</if>
+			<if test="loginIp != null and loginIp !=''">
+				login_ip ,
+			</if>
+			<if test="loginDate != null and loginDate !=''">
+				login_date ,
+			</if>
+			<if test="createBy != null and createBy !=''">
+				create_by ,
+			</if>
+			<if test="createDate != null and createDate !=''">
+				create_date ,
+			</if>
+			<if test="updateBy != null and updateBy !=''">
+				update_by ,
+			</if>
+			<if test="updateDate != null and updateDate !=''">
+				update_date ,
+			</if>
+			<if test="id != null and id !=''">
+				id ,
+			</if>
+			<if test="remarks != null and remarks !=''">
+				remarks ,
+			</if>
+			<if test="state != null and state !=''">
+				state ,
+			</if>
+			
+		</trim>
+	
+	</sql>
+	
+	<sql id="splicingFieldValue">
+		<trim suffix="" suffixOverrides=",">
+			<if test="loginName != null and loginName !=''">
+				#{loginName},
+			</if>
+			<if test="password != null and password !=''">
+				#{password} ,
+			</if>
+			<if test="name != null and name !=''">
+				#{name} ,
+			</if>
+			<if test="email != null and email !=''">
+				#{email} ,
+			</if>
+			<if test="phone != null and phone !=''">
+				#{phone} ,
+			</if>
+			<if test="userType != null and userType !=''">
+				#{userType} ,
+			</if>
+			<if test="photo != null and photo !=''">
+				#{photo} ,
+			</if>
+			<if test="loginIp != null and loginIp !=''">
+				#{loginIp} ,
+			</if>
+			<if test="loginDate != null and loginDate !=''">
+				#{loginDate} ,
+			</if>
+			<if test="createBy != null and createBy !=''">
+				#{create_by} ,
+			</if>
+			<if test="createDate != null and createDate !=''">
+				#{create_date} ,
+			</if>
+			<if test="updateBy != null and updateBy !=''">
+				#{update_by} ,
+			</if>
+			<if test="updateDate != null and updateDate !=''">
+				#{update_date} ,
+			</if>
+			<if test="id != null and id !=''">
+				#{id} ,
+			</if>
+			<if test="remarks != null and remarks !=''">
+				#{remarks} ,
+			</if>
+			<if test="state != null and state !=''">
+				#{state} ,
+			</if>
+		</trim>
+	</sql>
+	
+	<sql id="whereChoose">
+		<trim prefix="where" prefixOverrides="AND|OR">
+			<if test="loginName != null and loginName !=''">
+				and login_name = #{loginName}
+			</if>
+			<if test="password != null and password !=''">
+				and password = #{password} 
+			</if>
+			<if test="name != null and name !=''">
+				and name = #{name} 
+			</if>
+			<if test="email != null and email !=''">
+				and email = #{email} 
+			</if>
+			<if test="phone != null and phone !=''">
+				and phone = #{phone} 
+			</if>
+			<if test="userType != null and userType !=''">
+				and user_type = #{userType} 
+			</if>
+			<if test="photo != null and photo !=''">
+				and photo = #{photo} 
+			</if>
+			<if test="loginIp != null and loginIp !=''">
+				and login_ip = #{loginIp} 
+			</if>
+			<if test="loginDate != null and loginDate !=''">
+				and login_date = #{loginDate} 
+			</if>
+			<if test="createBy != null and createBy !=''">
+				and create_by = #{create_by} 
+			</if>
+			<if test="createDate != null and createDate !=''">
+				and create_date = #{create_date} 
+			</if>
+			<if test="updateBy != null and updateBy !=''">
+				and update_by = #{update_by} 
+			</if>
+			<if test="updateDate != null and updateDate !=''">
+				and update_date = #{update_date} 
+			</if>
+			<if test="id != null and id !=''">
+				and `id` = #{id} 
+			</if>
+			<if test="remarks != null and remarks !=''">
+				and remarks = #{remarks} 
+			</if>
+			<if test="state != null and state !=''">
+				and state = #{state} 
+			</if>
+			<if test="ids != null and ids !=''">
+				and `id` in 
+				<foreach collection="ids" index="index" item="param" open="(" separator="," close=")">
+					param
+				</foreach>
+			</if>
+		</trim>
+	
+	</sql>
+	
+	<select id="findUserByMap" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select *
+		from sys_user
+		<include refid="whereChoose"/>
+	</select>
+	
+	<insert id="insertUser" parameterType="com.tengyun.modules.sys.user.entity.User">
+		insert into sys_user(<include refid="splicingField"/>)
+		values(<include refid="splicingFieldValue"/>)
+	</insert>
+
+</mapper>

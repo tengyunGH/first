@@ -1,0 +1,9 @@
+.err{
+	color : red;
+	float : left;
+}
+.success{
+	color : green;
+	display : none;
+	float : left;
+}

@@ -1,0 +1,15 @@
+.register, .quit {
+	margin-right: 25px;
+}
+.labelInputDiv {
+	width : 400px;
+}
+.leftDiv, .leftLabel {
+	width : 150px;
+}
+.rightDiv{
+	width : 250px;
+}
+ .rightInput {
+	width : 230px;
+ }

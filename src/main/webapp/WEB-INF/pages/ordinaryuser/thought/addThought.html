@@ -1,0 +1,102 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="../../../common/commonCss.js" type="text/javascript"></script>
+	<!-- 引入本页面的css文件 -->
+	<link href="../../../statics/css/ordinaryuser/thought/addThought.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div class="labelInputDiv"> 
+		<div class="leftDiv">
+			<label class="leftLabel">标题：</label>
+		</div>
+		<div class="rightDiv">
+			<input class="rightInput" type="text" name="headLine"/>
+		</div>
+	</div>
+	<div class="textAreaDiv">
+		<textarea class="thoughtEdit" name="thought" rows="20" placeholder="发表看法......"></textarea>
+	</div>
+	<div>
+	
+		<div  class="visibility">
+			<label>谁可以看:</label>
+			<select name="visibility">
+				<option value="0">仅自己</option>
+				<option value="1">仅朋友</option>
+				<option value="2">所有人</option>
+			</select>
+		</div>
+		
+		<button class="button-common quit" onclick="layerClose()">取消</button>
+		<button class="button-common publish" onclick="save()">发表</button>
+	</div>
+	
+	<script src="../../../common/commonJs.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	
+		/* 获取点击的那个按钮的顺序和父页面的vm将数据加载出来 */
+		var i = window.parent.getIndex();
+		var vm = window.parent.getVm();
+		
+		// 获取标识 标识是添加的还是编辑的 
+		var flag = window.parent.getFlag();
+	
+		$(document).ready(function() {
+			if (flag == "edit") {
+				$(".publish").text("保存");
+// 				debugger
+				$("input[name='headLine']").val(vm.wholeData[i].headLine);
+				$("textarea[name='thought']").val(vm.wholeData[i].thought);
+			}
+		});
+	
+		function save() {
+			var data  = {};
+			if (flag == "edit") {
+				data = {
+						"headLine" : $("input[name='headLine']").val(),
+						"thought" : $("textarea[name='thought']").val(),
+						"id" : vm.wholeData[i].id,
+						"visibility" : $("select[name='visibility']").val()
+				};
+				saveData("/htmlintegration/thought/editThought",data);
+			} else if(flag == "add"){
+				data = {
+						"headLine" : $("input[name='headLine']").val(),
+						"thought" : $("textarea[name='thought']").val(),
+						"visibility" : $("select[name='visibility']").val()
+				};
+				saveData("/htmlintegration/thought/addThought",data);
+			}
+		}
+		
+		function saveData(url,data) {
+// 			debugger
+			$.ajax({
+				url : url,
+				type : "POST",
+				dataType : "json",
+				async : false,
+				data : data,
+				success : function(result) {
+					if(result.code == "200") {
+						parent.layer.alert("",{
+							content : result.message,
+							offset:'100px',
+							yes : function() {
+								layerClose();//本来可以不写 但是为了逻辑上的完整还是写上吧 
+								parent.location.reload();
+							}
+						});
+					} else {
+						parent.layer.alert("",{content:result.message,offset:'100px'});
+					}
+				},
+				error : function() {
+					parent.layer.alert("",{content:"保存失败了！error",offset:'100px'}); 
+				}
+			});
+		}
+	</script>
+</body>

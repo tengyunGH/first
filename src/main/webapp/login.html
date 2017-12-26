@@ -1,0 +1,81 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="icon" href="statics/images/favicon.ico" />
+	<link rel="stylesheet" type="text/css" href="statics/css/global.css" />
+	<link rel="stylesheet" type="text/css" href="statics/css/login.css" />
+	<!-- 小图标的工具 -->
+	<link rel="stylesheet" type="text/css" href="statics/plugin/icon/svg-symbols.css" />
+	<title>tengyun</title>
+</head>
+<body>
+	<h1>欢迎登录</h1>
+	<div id="loginDiv" >
+		<div class="labelInputDiv"> 
+			<div class="leftDiv">
+				<label class="leftLabel">nickname:<svg class="icon"><use xlink:href="statics/plugin/icon/svg-symbols.svg#user"/></svg></label>
+			</div>
+			<div class="rightDiv">
+				<input class="rightInput" type="text" name="username"/>
+			</div>
+		</div>
+		<div class="labelInputDiv"> 
+			<div class="leftDiv">
+				<label class="leftLabel">password:<svg class="icon"><use xlink:href="statics/plugin/icon/svg-symbols.svg#password"/></svg></label>
+			</div>
+			<div class="rightDiv">
+				<input class="rightInput" type="text" name="password"/>
+			</div>
+		</div>
+		<div class="labelInputDiv"> 
+			<div>
+				<button class="button-common registry" onclick="registry()">注册</button>
+				<button class="button-common login" onclick="login()">登录</button>
+			</div>
+		</div>
+	</div>
+	<script src="statics/js/jquery-3.1.1.min.js" type="text/javascript"></script>
+	<script src="/htmlintegration/statics/plugin/layer/layer.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function login() {
+			var data = new Object();
+			data.username = $("input[name='username']").val();
+			data.password = $("input[name='password']").val();
+			$.ajax({
+				url : "/htmlintegration/sys/user/login", 
+				type : "POST",
+				async : false,
+				dataType : "json",
+				data : data,
+				success : function(result) {
+					if(result.code == "200" && result.role != null && result.role.length > 0) {
+						//登录成功后根据角色跳转到相应的页面 
+						if($.inArray("admin", result.role) > -1) {
+							window.location.href="pages/admin/manager.html"; 
+						} else if ($.inArray("ordinaryUser", result.role) > -1) { 
+							window.location.href="pages/ordinaryuser/myThought.html"; 
+						}
+					} else {
+						alert("shiro验证失败,密码匹配错误");
+					}
+				},error:function() {
+					alert("你成功了一部分，但是登录出现异常 请重新登录"); 
+				}
+			});
+		}
+		
+		/* 注册按钮的点击事件  */
+		function registry() {
+			layer.open({
+				type:  2,  //0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+				area:  ['650px','350px'],
+				fix:  false,
+				maxmin:  true,
+				title:  "注册新用户", 
+				shade:  0.4,   //默认是0.3透明度的黑色背景（'#000'）。如果你想定义别的颜色，可以shade: [0.8, '#393D49']；如果你不想显示遮罩，可以shade: 0
+				content:  '/htmlintegration/pages/registry.html' //弹出层是个iframe，这里就写iframe的url
+			});
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>the fantastic world!</title>
+	<!-- 引入公共的css文件 -->
+	<script src="../../common/commonCss.js" type="text/javascript"></script>
+	<!-- 引入本页面的css文件 -->
+	<link href="../../statics/css/ordinaryuser/myFriends.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<!-- 网页头部 -->
+	<div class="navDiv"> 
+		<!-- 标题 -->
+		<h1>welcome to the fantastic world!</h1>
+		<!-- 导航栏 -->
+		<div class="navCloth">
+			<div class="myPhoto">
+				<img alt="" src="../../statics/images/lazySheep.jpg">
+			</div>
+			<div class="mySpace">
+				<div class="navPart">
+					<a class="navLink" href="logOff.html" target="_self" title="">log off</a>
+				</div>
+				<div class="navPart">
+					<a class="navLink" href="myMessage.html" target="_self" title="">my message</a>
+				</div>
+				<div class="navPart">
+					<a class="navLink self" href="myFriends.html" target="_self" title="">my friends</a>
+				</div>
+				<div class="navPart">
+					<a class="navLink" href="myThought.html" target="_self" title="">my thought</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 正文 begin  -->
+	<div class="baseDiv">
+	
+		<!-- 正文的标题部分 begin -->
+		<div class="headDiv">
+			<!-- 小标题 -->
+			<p class="smallHeadline">my Friends</p>
+			<button class="button-common" onclick="allThought()">所有人</button>
+			<button class="button-common" onclick="friendsThought()">好友</button>
+			<div class="queryHeadline">
+				<div class="queryDiv">
+						<label class="leftLabel">昵称:</label>
+						<input class="rightInput" type="text" name="loginName"/>
+				</div>
+				<div class="buttonDiv">
+					<button class="button-common query" onclick="query()">
+						<svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#search-white"/></svg>查找
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- 正文的标题部分 end -->
+
+		<!-- 正文部分的body 这里面是每个模块的正经内容 -->
+		<div class="bodyDiv">
+			<!-- 正文body左边是所有好友列表 -->
+			<div class="friends">
+				
+				<table class="friendsList">
+					<tbody>
+						<tr><td><p>Friends</p></td></tr>
+						<tr v-for="(item,index) in friends">
+							<td class="one" onclick="displayFriendThought(friends[index].userId)">{{item.memoName}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+				<!--  正文body的右边初始页面加载时加载网站用户中  所有用户 所有人可见的thought  以及我好友的仅好友可见的Thought
+						点击我的好友按钮时 只显示我的所有好友的  所有人可见的Thought 和 好友可见的thought
+						当点击右边某一个好友时 只显示该好友的  所有人可见的Thought 和 好友可见的thought -->
+			<div class="friendsThought">
+				<!-- 该页面加载的是所有当前用户的thought 按时间顺序排列 -->
+				<table class="thoughtList">
+					<tr v-for="(item,index) in thought">
+						<td>
+							<div onclick="querySomeone(thought[index].loginName)">{{item.loginName}}</div>
+							<div>
+								<svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#attend"/></svg>
+							</div>
+						</td>
+						<td>
+							<div class="headLine">{{item.headLine}}</div>
+							<div class="thought">{{item.thought}}</div>
+						</td>
+						<td>
+							<div>{{item.createDate}}</div>
+							<div><svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#bubble"/></svg></div>
+							<div><svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#collect"/></svg></div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		</div>
+		<!-- 正文部分的body  end -->
+		
+		
+	</div>
+	<!-- 正文 end  -->
+	
+	
+	
+	<!-- 尾部   -->
+	<div class="tailDiv">
+		<div class="tailPart">
+			© 2017-12  tengyun
+		</div>
+		<div class="tailPart">
+			大海杂货铺
+		</div>
+		<div class="tailPart">
+			天津市西青区中北镇新城市中心A座
+		</div>
+	</div>
+								
+<!-- 引入公共的js文件 -->
+<script src="../../common/commonJs.js" type="text/javascript"></script>
+<!-- 引入该页面的js文件 -->
+<script src="../../statics/js/ordinaryuser/myFriends.js" type="text/javascript"></script>
+
+</body>
+</html>
+	

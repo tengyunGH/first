@@ -1,0 +1,162 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="../common/commonCss.js" type="text/javascript"></script>
+	<link href="../statics/css/registry.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<form id="userForm" class="layerForm">
+		<div class="labelInputDiv">
+			<div class="leftDiv">
+				<label class="leftLabel">昵称：</label>
+			</div>
+			<div class="rightDiv">
+				<input class="rightInput loginNameValidate" type="text" name="loginName"/><span class="err loginNameErr">*</span><span class="success loginNameSuccess">&radic;</span>
+			</div>
+		</div>
+		<div class="labelInputDiv">
+			<div class="leftDiv">
+				<label class="leftLabel">密码：</label>
+			</div>
+			<div class="rightDiv">
+				<input class="rightInput passwordValidate" type="text" name="password"/><span class="err passwordErr">*</span><span class="success passwordSuccess">&radic;</span>
+			</div>
+		</div>
+		<div class="labelInputDiv"> 
+			<div class="leftDiv">
+				<label class="leftLabel">姓名：</label>
+			</div>
+			<div class="rightDiv">
+				<input class="rightInput" type="text" name="name"/>
+			</div>
+		</div>
+		<div class="labelInputDiv"> 
+			<div class="leftDiv">
+				<label class="leftLabel">email：</label>
+			</div>
+			<div class="rightDiv">
+				<input class="rightInput" type="text" name="email"/>
+			</div>
+		</div>
+		<div class="labelInputDiv"> 
+			<div class="leftDiv">
+				<label class="leftLabel">手机号：</label>
+			</div>
+			<div class="rightDiv">
+				<input class="rightInput phoneValidate" type="text" name="phone"/><span class="err phoneErr">*</span><span class="success phoneSuccess">&radic;</span>
+			</div>
+		</div>
+		<div class="labelInputDiv"> 
+			<div class="leftDiv">
+				<label class="leftLabel">头像：</label>
+			</div>
+			<div class="rightDiv">
+				<input class="rightInput" type="text" name="photo"/>
+			</div>
+		</div>
+		<div class="labelInputDiv"> 
+			<div class="leftDiv">
+				<label class="leftLabel">备注：</label>
+			</div>
+			<div class="rightDiv">
+				<input class="rightInput" type="text" name="remarks"/>
+			</div>
+		</div>
+	</form>
+	<div> 
+		<button class="button-common quit" onclick="quit()">取消</button>
+		<button class="button-common registry" onclick="save()">提交</button>
+	</div>
+	<script src="../common/commonJs.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	/**
+	 * 监听事件的flag 为0 表示当前没有回车事件 为1 表示当前的改变是由回车键引起的
+	 */
+	var monitorFlag = 0;
+	
+	/**
+	 * 自定义验证监听事件 这样所有元素都可以用这个方法
+	 */
+	$.fn.validateMonitor = function(className,functionName,url) {
+		$("."+className).change(function() {
+// 			debugger
+			if(monitorFlag == 1) {
+ 				//不是回车的其他change 没有动作 回车事件已经验证过了 
+ 				//验证完毕后将标志位再改回来
+				monitorFlag = 0;
+ 			} else {
+				functionName(url);
+				
+ 			}
+		});
+		$("."+className).keydown(function(e) {
+
+			if(e.which == 13) {
+				debugger
+ 				monitorFlag = 1;
+				functionName(url);
+			}
+		});
+	}
+	
+	$(document).ready(function() {
+		/* 登录名的 回车事件 去数据库中查询会不会重名了 */
+		$(".loginNameValidate").validateMonitor('loginNameValidate',checkLoginNameUniqueAndLegal,'/htmlintegration/sys/user/checkLoginName');
+		$(".passwordValidate").validateMonitor('passwordValidate',checkPasswordLegal);
+		$(".noValidate").validateMonitor('noValidate',checkNumberLegal,'/htmlintegration/sys/user/checkNumber');
+		$(".phoneValidate").validateMonitor('phoneValidate',checkPhoneLegal);
+// 		$(".mobileValidate").validateMonitor('mobileValidate',checkMobileLegal); 
+		
+		/* $(".loginNameValidate").change(function(e) {
+			debugger
+			validate();
+		});
+		$(".passwordValidate").change(function(e) {
+			validate(checkPasswordLegal,e);
+		});
+		$(".noValidate").change(function(e) {
+			validate(checkNumberLegal,e,'/htmlintegration/sys/user/checkNumber');
+		});
+		$(".phoneValidate").change(function(e) {
+			validate(checkPhoneLegal,e);
+		});
+		$(".mobileValidate").change(function(e) {
+			validate(checkMobileLegal,e); 
+		}); */
+	});
+		
+
+	/* 注册方法 将用户填写的信息存入数据库中  */
+	function save() {
+		debugger 
+		var data = $("#userForm").serialize();
+		/* 应当加个表单序列化才对 但是现在不会 */
+		$.ajax({
+			type:'POST',
+			url:'/htmlintegration/sys/user/add',
+			async:false,
+			dataType:'json',
+			data:data,
+			success: function(result) {
+				debugger 
+				if(result.code == '200') {
+					parent.layer.alert("提示",{content:'注册成功，请登录！',offset: ['100px', '200px']});
+				} else {
+					parent.layer.alert("提示",{content:'注册失败，请重新注册！',offset: ['100px', '200px']});
+				}
+			},
+			error:function() {
+				parent.layer.alert("提示",{content:'注册失败，请重新注册！',offset: ['100px', '200px']});
+			}
+		});
+		debugger 
+		layerClose();
+	}
+	/* 取消 关闭layer  */
+	function quit() {
+		layerClose();
+	}
+
+	
+	</script>
+</body>

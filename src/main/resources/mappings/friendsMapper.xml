@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tengyun.modules.ordinaryuser.myfriends.dao.FriendsDao">
+	<resultMap type="com.tengyun.modules.ordinaryuser.myfriends.entity.Friends" id="BaseResultMap">
+		<result property="userId" column="user_id"/>
+		<result property="friendId" column="friend_id"/>
+		<result property="memoName" column="memo_name"/>
+		<result property="applyMessage" column="apply_message"/>
+		<result property="applyDate" column="apply_date"/>
+		<result property="friendState" column="friend_state"/>
+		<result property="agreeDate" column="agree_date"/>
+		<result property="refuseDate" column="refuse_date"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	
+	<sql id="whereChoose">
+		<trim prefix="where" prefixOverrides="and">
+			<if test="userId != null and userId != ''">
+				and user_id = #{userId}
+			</if>
+			<if test="friendId != null and friendId != ''">
+				and friend_id = #{friendId}
+			</if>
+			<if test="memoName != null and memoName != ''">
+				and memo_name = #{memoName}
+			</if>
+			<if test="applyMessage != null and applyMessage != ''">
+				and apply_message = #{applyMessage}
+			</if>
+			<if test="applyDate != null">
+				and apply_date = #{applyDate}
+			</if>
+			<if test="friendState != null and friendState != ''">
+				and friend_state = #{friendState}
+			</if>
+			<if test="agreeDate != null">
+				and agree_date = #{agreeDate}
+			</if>
+			<if test="refuseDate != null">
+				and refuse_date = #{refuseDate}
+			</if>
+			<if test="state != null and state != ''">
+				and state = #{state}
+			</if>
+		</trim>
+	</sql>
+	
+	<select id="query" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from friends
+		<include refid="whereChoose"/>
+	
+	</select>
+	
+</mapper>

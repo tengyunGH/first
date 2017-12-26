@@ -1,0 +1,127 @@
+我在前台界面写的
+	<div class="jqGridDiv">
+		<table id="jqgridTable"></table>
+		<div id="pager"></div>
+	</div>
+	
+jqgrid渲染的
+<div class="jqGridDiv">
+		<div class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" id="gbox_jqgridTable" dir="ltr" style="width: 100%;">
+			<div class="jqgrid-overlay ui-widget-overlay" id="lui_jqgridTable"></div>
+			
+			<!-- 这个div是包含了标题和展示数据的div  不包含那个分页 -->
+			<div class="ui-jqgrid-view " role="grid" id="gview_jqgridTable" style="width: 100%;">
+				<div class="ui-jqgrid-titlebar ui-jqgrid-caption ui-widget-header ui-corner-top ui-helper-clearfix" style="display: none;">
+					<a role="link" class="ui-jqgrid-titlebar-close HeaderButton ui-corner-all" title="Toggle Expand Collapse Grid" style="right: 0px;">
+						<span class="ui-jqgrid-headlink ui-icon ui-icon-circle-triangle-n"></span>
+					</a>
+					<span class="ui-jqgrid-title"></span>
+				</div>
+				
+				<!-- 这个是标题的div -->
+				<div class="ui-jqgrid-hdiv ui-state-default ui-corner-top" style="width: 100%;">
+					<div class="ui-jqgrid-hbox" style="padding-right: 0px;">
+						<table class="ui-jqgrid-htable ui-common-table " style="width: 100%;" role="presentation" aria-labelledby="gbox_jqgridTable">
+							<thead>
+								<tr class="ui-jqgrid-labels" role="row" style="height: 42px;">
+									<!-- 这一行的th是那个checkbox -->
+									<th id="jqgridTable_cb" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 30px;">
+										<div class="ui-th-div" id="jqgh_jqgridTable_cb">
+											<input role="checkbox" id="cb_jqgridTable" class="cbox" type="checkbox">
+											<span class="s-ico" style="display:none">
+													<span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+													<span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
+											</span>
+										</div>
+									</th>
+									<!-- 这个th开始是你自己定义的标题 有几个标题 就有几个th 同样的都是 -->
+									<th id="jqgridTable_comment" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 198px;">
+										<span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+										<div class="ui-th-div ui-jqgrid-sortable" id="jqgh_jqgridTable_comment">我的心得<span class="s-ico" style="display:none">
+											<span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+											<span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
+											</span>
+										</div>
+									</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				
+				<!-- 这个div 就是你的展示的数据的那部分  除了标题和分页的body  -->
+				<div class="ui-jqgrid-bdiv" style="height: 150px; width: 100%;">
+					<div style="position:relative;">
+						<div></div>
+						<table id="jqgridTable" tabindex="0" role="presentation" aria-multiselectable="true" aria-labelledby="gbox_jqgridTable" class="ui-jqgrid-btable ui-common-table" style="width: 100%;">
+							<tbody>
+								<!-- 这一行的tr大小是没有的 -->
+								<tr class="jqgfirstrow" role="row">
+									<td role="gridcell" style="height:0px;width:30px;"></td>
+									<td role="gridcell" style="height:0px;width:198px;"></td>
+									<td role="gridcell" style="height:0px;width:198px;"></td>
+									<td role="gridcell" style="height:0px;width:198px;"></td>
+									<td role="gridcell" style="height:0px;width:159px;"></td>
+								</tr>
+								<!-- 从这里开始的每个tr就是战士每一行数据 这里我只留了第一条数据 -->
+								<tr role="row" id="1" tabindex="-1" class="jqgrow ui-row-ltr ui-widget-content">
+									<td role="gridcell" style="text-align:center;width: 30px;" aria-describedby="jqgridTable_cb"> <input role="checkbox" type="checkbox" id="jqg_jqgridTable_1" class="cbox " name="jqg_jqgridTable_1"></td>
+									<td role="gridcell" style="text-align:center;" title="这个背景好看" aria-describedby="jqgridTable_comment">这个背景好看</td>
+									<td role="gridcell" style="text-align:center;" title="1513303891000" aria-describedby="jqgridTable_createDate">1513303891000</td>
+									<td role="gridcell" style="text-align:center;" title="" aria-describedby="jqgridTable_updateDate">&nbsp;</td>
+									<td role="gridcell" style="text-align:center;" title="" aria-describedby="jqgridTable_ ">
+										<div>
+											<svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../statics/plugin/icon/svg-symbols.svg#edit"></use></svg>
+											<svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="../statics/plugin/icon/svg-symbols.svg#delete"></use></svg>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		
+			<div class="ui-jqgrid-resize-mark" id="rs_mjqgridTable">&nbsp;</div>
+	
+			<!-- 这个div是分页的div  上面的就是标题和body -->
+			<div id="pager" class="ui-jqgrid-pager ui-state-default ui-corner-bottom" dir="ltr" style="width: 100%;">
+				<div id="pg_pager" class="ui-pager-control" role="group">
+					<table class="ui-pg-table ui-common-table ui-pager-table ">
+						<tbody>
+							<tr>
+								<td id="pager_left" align="left"></td>
+								<td id="pager_center" align="center" style="white-space: pre; width: 274.8px;">
+									<table class="ui-pg-table ui-common-table ui-paging-pager">
+										<tbody>
+											<tr>
+												<td id="first_pager" class="ui-pg-button ui-corner-all ui-state-disabled" title="First Page"><span class="ui-icon ui-icon-seek-first"></span></td>
+												<td id="prev_pager" class="ui-pg-button ui-corner-all ui-state-disabled" title="Previous Page"><span class="ui-icon ui-icon-seek-prev"></span></td>
+												<td class="ui-pg-button ui-state-disabled"><span class="ui-separator"></span></td>
+												<td id="input_pager" dir="ltr">Page <input class="ui-pg-input ui-corner-all" type="text" size="2" maxlength="7" value="0" role="textbox"> of <span id="sp_1_pager">1</span></td>
+												<td class="ui-pg-button ui-state-disabled"><span class="ui-separator"></span></td>
+												<td id="next_pager" class="ui-pg-button ui-corner-all ui-state-disabled" title="Next Page"><span class="ui-icon ui-icon-seek-next"></span></td>
+												<td id="last_pager" class="ui-pg-button ui-corner-all ui-state-disabled" title="Last Page"><span class="ui-icon ui-icon-seek-end"></span></td>
+												<td dir="ltr">
+													<select class="ui-pg-selbox ui-widget-content ui-corner-all" role="listbox" title="Records per Page">
+														<option role="option" value="10">10</option>
+														<option role="option" value="20" selected="selected">20</option>
+														<option role="option" value="30">30</option>
+													</select>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td id="pager_right" align="right"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	
+</div>
+
+
+

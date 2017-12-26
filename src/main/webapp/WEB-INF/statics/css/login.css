@@ -1,0 +1,37 @@
+@charset "UTF-8";
+body {
+	background-image:url("../images/rose.jpg");/* 相对登录界面jsp文件的地址 不是这个css文件 */
+	vertiacl-align:center;
+	color:#fff;
+	background-size:100% 100%;
+}
+h1 {
+	margin : 100px auto;
+	text-align : center;
+}
+#loginDiv {
+	margin: 15% auto 0;
+	text-align : center;
+}
+.labelInputDiv {
+	width : 295px;
+	font-size : 14px;
+}
+.leftLabel, .leftDiv {
+		width : 95px;
+}
+.rightInput, .rightDiv {
+		width : 100px;
+}
+.leftLabel{
+	background-color: rgba(0, 0, 0, 0);
+	border : 0 solid;
+}
+.rightInput{
+	width : 150px;
+	border : 0 solid;
+}
+.registry, .login {
+	margin-right: 50px;
+}
+

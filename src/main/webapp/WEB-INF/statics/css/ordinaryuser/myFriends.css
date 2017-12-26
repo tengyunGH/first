@@ -1,0 +1,53 @@
+body {
+		background-color : #6DCED7;
+}
+
+/* 正文部分的头部中的按钮然他向左飘 */
+.headDiv .button-common, .smallHeadline {
+	float : left;
+}
+
+.queryHeadline .button-common {
+	margin : 0;
+}
+.headDiv .rightInput {
+	width : 75px;
+}
+.friends, .friendsThought{
+	min-height : 300px;
+	display : inline-block;
+	background-color : #95D4FF;
+	margin : 20px;
+	border-radius : 10px;
+	display : none;
+}
+.friends {
+	position : fixed;
+	width : 150px;
+}
+
+.friendsList {
+	width : 90%;
+	background-color : white;
+	margin : 10px auto;
+	color : black;
+	border-collapse:collapse;
+}
+
+.friendsList p{
+	margin : 5px;
+	text-align : center;
+	height : 25px;
+	font : bolder 17px/25px normal;
+}
+
+.friendsList .one {
+	
+	border : 1px solid #ccc;
+	font : 14px/20px "楷体",normal;
+	padding-left : 10px;
+}
+
+.friendsThought {
+	margin-left : 200px;
+}

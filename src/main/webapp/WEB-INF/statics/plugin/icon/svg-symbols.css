@@ -1,0 +1,11 @@
+.icon{
+	width : 15px;
+	height : 15px;
+	vertical-align : middle;
+	margin : 3px;
+}
+.Ininput {
+	position : relative;
+	left: 140px;
+    bottom: 24px;
+}

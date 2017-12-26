@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">  
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+<!-- 
+配置文件可定义多个appender 每个appender要定义 输出目的地(使用的类)   打印的级别(filter控制)   打印的格式(layout控制)
+定义好之后，在后来的logger中声明哪个包(name)用哪个appender(引用name)来记录相应的日志
+
+ -->
+
+  <!--将日志输出到控制台 对应的class是org.apache.log4j.ConsoleAppender -->  
+  <appender name="console" class="org.apache.log4j.ConsoleAppender">  <!-- name提供给logger或者root调用 -->
+     <param name="encoding" value="UTF-8" />  <!-- 保存字符集 -->
+     <param name="target" value="System.out" />  <!-- 输出到控制台 -->
+     <layout class="org.apache.log4j.PatternLayout"> <!-- loyout表示输出方式，可以多种，class值区分，PatternLayout表示自定义格式 --> 
+       <param name="ConversionPattern" value="%n%c %d{ISO8601}-- %p -- %m%n" />  <!-- 输出格式，后面解释 -->
+     </layout>  
+      <!--filter过滤器设置输出的级别:ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+          所有下面输出的是debug到warn不会有error和fatal
+      -->  
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
+            <param name="levelMin" value="debug" />  
+            <param name="levelMax" value="error" />  
+            <param name="AcceptOnMatch" value="true" />  <!-- 答案：http://bbs.csdn.net/topics/350195913 -->
+        </filter>  
+  </appender>  
+
+  
+  <!-- 这个class表示输入到文件，可以配置多久产生一个新的日志信息文件-->  
+  <appender name="debug" class="org.apache.log4j.DailyRollingFileAppender">  
+     <param name="File" value="d:/logs/htmlintegration/debug.log" /> 
+     <param name="Append" value="true" />  <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+     <param name="encoding" value="UTF-8" />  
+     <param name="threshold" value="debug" /> <!-- 记录debug及其以上的-->
+     <!-- 设置当日志文件达到此阈值的时候自动回滚，单位可以是KB，MB，GB，默认单位是KB -->
+     <param name="MaxFileSize" value="10KB" />
+      <!-- 设置保存备份回滚日志的最大个数 -->
+<!--       <param name="MaxBackupIndex" value="10" /> -->
+     <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />  
+     <layout class="org.apache.log4j.PatternLayout">  <!-- 输出方式 -->
+     	<param name="ConversionPattern" value="%n%d{ISO8601} 耗时：%r [日志来自：%-40.40c{3} 日志类型: %-5p 日志内容：%m]%n" />  
+     </layout>  
+   </appender>  
+
+
+<!--
+     注意：
+     1：当additivity="false"时，root中的配置就失灵了，不遵循缺省的继承机制
+     2：logger中的name非常重要，它代表记录器的包的形式，有一定的包含关系，试验表明
+        2-1：当定义的logger的name同名时，只有最后的那一个才能正确的打印日志
+        2-2：当对应的logger含有包含关系时，比如：name=test.log4j.test8 和 name=test.log4j.test8.UseLog4j，则2-1的情况是一样的
+        2-3：logger的name表示所有的包含在此名的所有记录器都遵循同样的配置，name的值中的包含关系是指记录器的名称哟！注意啦！
+     3：logger中定义的level和appender中的filter定义的level的区间取交集
+     4：如果appender中的filter定义的 levelMin > levelMax ，则打印不出日志信息
+     -->
+
+   
+     <!-- name指定的是包名，这样只操作此包下的log -->
+   <logger name="org.springframework" additivity="true">  
+      <level value="DEBUG"></level>  
+      <appender-ref ref="debug"/>
+   </logger>  
+   
+   <logger name="com.tengyun.modules" additivity="true">
+      <level value="DEBUG"></level>
+      <appender-ref ref="console"/>
+   </logger>
+   
+   <logger name="org.mybatis" additivity="true">
+      <level value="DEBUG"></level>
+      <appender-ref ref="console"/>
+   </logger>
+   
+   <logger name="org.apache" additivity="true">
+      <level value="DEBUG"></level>
+      <appender-ref ref="debug"/>
+   </logger>
+   
+   <!-- Root Logger -->  
+   <!-- 所有logger的父类，记录所有的日志。 -->
+   <root> 
+       <level value="ALL"></level>  <!-- 限定记录等级 -->
+       <appender-ref ref="debug" />  <!-- 调用记录方式 -->
+   </root>  
+   
+</log4j:configuration>

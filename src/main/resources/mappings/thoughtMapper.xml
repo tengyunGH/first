@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tengyun.modules.ordinaryuser.mythought.dao.ThoughtDao">
+	<resultMap type="com.tengyun.modules.ordinaryuser.mythought.entity.Thought" id="BaseResultMap">
+		<id property="id" column="id" />
+		<result property="userId" column="user_id" />
+		<result property="headLine" column="headLine"/>
+		<result property="thought" column="thought"/>
+		<result property="visibility" column="visibility"/>
+		<result property="createDate" column="create_date"/>
+		<result property="updateDate" column="update_date"/>
+		<result property="remarks" column="remarks"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	
+	<resultMap type="java.util.Map"  id="thoughtUser">
+		<id property="id" column="id" />
+		<result property="loginName" column="login_name" />
+		<result property="userId" column="user_id" />
+		<result property="headLine" column="headLine"/>
+		<result property="thought" column="thought"/>
+		<result property="visibility" column="visibility"/>
+		<result property="createDate" column="create_date"/>
+		<result property="updateDate" column="update_date"/>
+		<result property="remarks" column="remarks"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	
+	<sql id="whereChoose">
+		<trim prefix="where" prefixOverrides="AND|OR ">
+			<if test="id != null and id != ''">
+				and id = #{id}
+			</if>
+			<if test="userId != null and userId != ''">
+				and user_id = #{userId}
+			</if>
+			<if test="headLine != null and headLine != ''">
+				and headLine = #{headLine}
+			</if>
+			<if test="thought != null and thought != ''">
+				and thought = #{thought}
+			</if>
+			<if test="visibility != null and visibility != ''">
+				and visibility = #{visibility}
+			</if>
+			<if test="visibilities != null">
+				and visibility in
+				 <foreach collection="visibilities" index="index" item="visibility" open="(" separator="," close=")">
+		   				 #{visibility}
+				</foreach>
+			</if>
+			<if test="createDate != null">
+				and Date(create_date) = #{createDate}
+			</if>
+			<if test="updateDate != null">
+				and Date(update_date) = #{updateDate}
+ 			</if>
+ 			<if test="remarks != null and remarks != ''">
+				and remarks = #{remarks}
+ 			</if>
+ 			<if test="state != null and state != ''">
+				and state = #{state}
+ 			</if>	
+		</trim>
+	</sql>
+	
+	<sql id="splicingField">
+		<trim suffixOverrides=",">
+			<if test="id != null and id!= ''">
+				id,
+			</if>
+			<if test="userId != null and userId != ''">
+				user_id,
+			</if>
+			<if test="headLine != null and headLine != ''">
+				headLine,
+			</if>
+			<if test="thought != null and thought!= ''">
+				thought,
+			</if>
+			<if test="visibility != null and visibility != ''">
+				visibility,
+			</if>
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+			<if test="delDate != null">
+				del_date,
+			</if>
+			<if test="remarks != null and remarks != ''">
+				remarks,
+			</if>
+			<if test="state != null and state != ''">
+				state,
+			</if>
+		</trim>
+	</sql>
+	
+	<sql id="splicingValue">
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="userId != null and userId != ''">
+				#{userId},
+			</if>
+			<if test="headLine != null and headLine != ''">
+				#{headLine},
+			</if>
+			<if test="thought != null and thought != ''">
+				#{thought},
+			</if>
+			<if test="visibility != null and visibility != ''">
+				#{visibility},
+			</if>
+			<if test="createDate != null and createDate != ''">
+				#{createDate},
+			</if>
+			<if test="updateDate != null and updateDate != ''">
+				#{updateDate},
+			</if>
+			<if test="delDate != null and delDate != ''">
+				#{delDate},
+			</if>
+			<if test="remarks != null and remarks != ''">
+				#{remarks},
+			</if>
+			<if test="state != null and state != ''">
+				#{state},
+			</if>
+		</trim>
+	</sql>
+	
+	<sql id="setValue">
+		<trim prefix="set" suffixOverrides=",">
+			<if test="headLine != null and headLine != ''">
+				headLine=#{headLine},
+			</if>
+			<if test="thought != null and thought != ''">
+				thought = #{thought},
+			</if>
+			<if test="visibility != null and visibility != ''">
+				visibility = #{visibility},
+			</if>
+			<if test="updateDate != null">
+				update_date = #{updateDate},
+			</if>
+			<if test="delDate != null">
+				del_date = #{delDate},
+			</if>
+			<if test="remarks != null and remarks != ''">
+				remarks = #{remarks},
+			</if>
+		</trim>
+	</sql>	
+	
+	<!-- 查询某个人的当前用户能看的 或许是陌生人或许是朋友或许是自己  要根据visibility控制可见程度-->
+	<select id="querySomebody" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from thought
+		<include refid="whereChoose"/>
+		and state='0'
+		order by create_date desc
+	</select>
+	
+	<!-- 查询当前用户能看见的所有Thought 连带上相应的loginName -->
+	<select id="queryAll" parameterType="java.util.Map" resultMap="thoughtUser">
+		<!-- 所有用户的所有人可见 2-->
+		select * from (
+			select t.*, u.login_name from thought as t LEFT JOIN sys_user as u on t.user_id = u.id
+			where visibility='2' 
+			union
+			<!-- 当前用户的所有朋友的仅朋友可见 1 -->
+			select t.*, u.login_name from thought as t LEFT JOIN sys_user as u on t.user_id = u.id
+			where 
+			t.user_id in (
+				select friend_id
+				from friends as f
+				where f.user_id=#{userId}
+			)
+			and t.visibility='1' 
+			union
+			<!-- 当前用户的仅自己可见和仅朋友可见 0  1  连带上相应的loginName-->
+			select t.*, u.login_name from thought as t LEFT JOIN sys_user as u on t.user_id = u.id
+			where user_id=#{userId} and visibility in ('0','1')
+		) as th
+		<!-- 有效标志位  时间排序 -->
+		where state='0'
+		order by th.create_date
+	</select>
+	
+	<!-- 查询当前用户的所有朋友的当前用户可见的thought 以及所有我自己的 -->
+	<select id="queryFriends" parameterType="java.util.Map" resultMap="thoughtUser">
+		select * from (
+			<!-- 查询我的朋友的1 2  -->
+			select t.*, u.login_name from thought as t LEFT JOIN sys_user as u on t.user_id = u.id
+			where  t.user_id in (
+					select friend_id
+					from friends as f
+					where f.user_id=#{userId}
+				)    
+			and t.visibility in ('1','2')
+			<!-- 合并 我自己的所有 -->
+			union
+			select t.*, u.login_name from thought as t LEFT JOIN sys_user as u on t.user_id = u.id
+			where t.user_id=#{userId}
+		) as th
+		<!-- 有效标志位  时间排序 -->
+		where state='0'
+		order by th.create_date
+	</select>
+	
+	<!-- 当前用户添加Thought -->
+	<insert id="addThought" parameterType="java.util.Map">
+		insert into thought (<include refid="splicingField"/>)
+		values (<include refid="splicingValue"/>)
+	</insert>
+	
+	<!-- 当前用户根据某条Thought的id更改  可实现编辑 删除等功能 -->
+	<update id="updateThought" parameterType="java.util.Map">
+		update thought
+		<include refid="setValue"/>
+		<trim prefix="where" prefixOverrides="and">
+			<if test="id != null and id != ''">
+				and id=#{id}
+			</if>
+			<if test="ids != null">
+				and id in
+				 <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+		   				 #{id}
+				</foreach>
+			</if>
+		</trim>
+		
+	</update>
+	
+	<select id="queryIdByLoginName" parameterType="java.util.Map" resultType="java.lang.Integer">
+		select id 
+		from sys_user 
+		where login_name = #{loginName} 
+	</select>
+
+	<select id="queryLoginNameByUserId" parameterType="java.util.Map" resultType="java.lang.String">
+		select login_name 
+		from sys_user
+		where id=#{userId}
+	</select>
+</mapper>
+	

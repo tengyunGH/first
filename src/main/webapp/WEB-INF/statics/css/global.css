@@ -1,0 +1,267 @@
+body {
+	font : 13px normal ;
+	margin : 0;
+	color : white;
+}
+/* 先让所有管理员和普通用户不同的元素隐藏起来 在页面加载时调用queryIdentity，匹配，再显示元素 */
+/* .admin, .ordinaryUser { */
+/* 	display : none; */
+/* } */
+
+/* 所有页面的button */
+.button-common {
+	margin : 15px 10px;
+	width : 60px;
+	text-align :center;
+	height : 27px;
+	line-height : 23px;
+	color : white;
+	background-color : #95d4ff;
+	border : 1px solid #95d4ff;
+	border-radius : 5px;
+	float : right;
+}
+
+
+/* 按钮中的小图标 让他比普通的要小一些 */	
+.button-common .icon {
+	width : 13px;
+	height : 13px;
+}
+/* 按钮外面的div */
+.buttonDiv {
+	display : inline-block;
+}
+/*按钮上有四个汉字的 设置他的宽度比较宽 */
+.buttonDiv .four-button {
+	width : 87px;
+	margin-left : 5px;
+}
+
+/* layer弹出层的label input布局  */
+/* 每一行左边的label */
+.leftLabel {
+	height : 25px;
+	line-height : 25px;
+	text-align : right;
+	border : 1px solid #888;
+	background-color : #ccc;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+}
+/* 每行右边的input */
+.rightInput {
+	height : 27px;
+	line-height : 27px;
+	text-align : left;
+	border : 1px solid #C7C7C8;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+}
+.leftLabel, .rightInput {
+	padding : 0;
+	display : inline-block;
+	float : left;
+	margin : 0;
+}
+/* 弹出层的那些 被包在一个Form里面 */
+.layerform {
+	width : 80%;
+	text-align : center;
+	margin : 20px auto;
+}
+/* 里面分别是相应的label 和 input */
+.leftDiv, .rightDiv {
+	display : table-cell;
+	padding : 0;
+}
+.leftDiv {
+	margin : 8px 0 0 10px;
+}
+.rightDiv {
+	margin : 8px 10px 0 0 ;
+}
+/* 里面是leftDiv和rightDiv */
+.labelInputDiv { 
+	display : table;
+	margin: 5px auto;
+}
+
+/* 是一个页面的底板部分 这里面就是页面的内容了 */
+.baseDiv {
+	width : 90%;
+	margin : 120px auto 10px;
+	overflow : hidden;
+}
+
+/* 页面的第一行布局  一般这里面是一个标题加上查询框和查询按钮 */
+.headDiv {
+	height : 50px;
+	color : black;
+	
+}
+
+/* 页面第一行里面的那个小标题 */
+.smallHeadline {
+	display : inline-block;
+	margin : 0 20px;
+	font-size : 18px;
+	font-weight : bolder;
+	line-height : 50px;
+}
+
+
+/* 页面的内容部分 */
+.bodyDiv {
+	min-height : 150px;
+}
+
+.headDiv , .bodyDiv {
+	background-color : white;
+	width : 100%;
+	border : 1px solid #ccc;
+	border-radius : 8px;
+	margin-bottom : 10px;
+}
+
+/* 查询框的布局 */
+.queryHeadline {
+	display : table;
+	float : right;
+	margin-top: 12px;
+	margin-right: 10px;
+	color : white;
+}
+
+/* 里面包裹着label和input   多个queryDiv外面是queryHeadline*/
+.queryDiv { 
+	display : table-cell;
+	padding : 0;
+}
+
+/* 查询框中的左边的label样式的补充 */
+.queryHeadline .leftLabel {
+	height: 27px;
+    line-height: 27px;
+	background-color : #95d4ff;
+	border : 0 solid;
+	padding : 0 5px;
+/* 	width : 60px; */
+}
+/* 查询框中右边的input框的样式补充 */
+.queryHeadline .rightInput {
+	margin-right : 10px;
+}
+/* 查询框中的按钮外面的div的样式补充 */
+.buttonDiv {
+	vertical-align : top;
+}
+
+
+
+
+/* 导航栏的样式 */
+ .navDiv {
+	 position : fixed;
+	 z-index : 999;
+	 width : 100%;
+	 top : 0;
+	 background-image:url("../images/starsky2.png");
+	 background-size : 100% 100%;
+ }
+
+.navCloth {
+	width : 90%;
+	margin : 5px 5%;
+}
+
+.navDiv h1 {
+	margin : 10px auto;
+	text-align : center; 
+	color : white;
+}
+
+.navDiv .myPhoto {
+	display : inline-block;
+}
+
+.navDiv .myPhoto img {
+	width : 45px;
+	height : 45px;
+	border-radius : 50%;
+}
+
+.navDiv .mySpace {
+	font : bolder 17px normal;
+	display : table;
+	float : right;
+}
+
+.mySpace .navPart {
+	display : table-cell;
+	margin : 0;
+	height : 20px;
+	line-height : 20px;
+	float : right;
+	text-align : center;
+}
+/* 导航栏链接的普通样式 */
+.navLink {
+	color : white;
+	text-decoration : none;
+	border-bottom : 3px solid rgba(0,0,0,0);
+	display : inline-block;
+	padding : 10px 5px;
+	white-space : nowrap;/*  文字不换行 */
+}
+/* 当前页所在的链接 */
+.self {
+	border-bottom : 3px solid  #BE5313;
+}
+/* 没有选择的连接 */
+.navPart a:link {
+	
+}
+ /* 已选择过的连接 */
+ .navPart a:visited {
+ 	
+ }
+/* 鼠标悬浮在上面的样式 */
+.navPart a:hover,  .navPart a:visited  {
+	border-bottom : 3px solid  #BE5313;
+/* 	border-bottom-width : 90%; */
+}
+/* 鼠标点击时的样式 */
+.navPart a:active {
+	
+}
+
+/* 结尾部分的样式 */
+.tailDiv {
+	font : bold 15px/27px "楷体",normal;
+/* 	background-image:url("/htmlintegration/statics/images/footer.png"); */
+	margin : 10px 0;
+}
+/* .tailContent { */
+/* 	width : 90%; */
+/* } */
+.tailPart {
+	height : 27px;
+	text-align : center;
+	margin : 5px;
+}
+
+
+/* 放thought的div让他里面的code标签居中 */
+.thought {
+	text-align : center;
+}
+/* 放存入数据库中的文字，要将换行符保留。文字靠右 */
+code {
+	white-space: pre-line;
+	display : inline-block;
+	text-align : left;
+}
+
+
+

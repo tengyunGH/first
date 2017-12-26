@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tengyun.modules.sys.role.dao.RoleDao">
+	<resultMap type="com.tengyun.modules.sys.role.entity.Role" id="BaseResultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name"/>
+		<result property="enname" column="enname"/>
+		<result property="useable" column="useable"/>
+		<result property="createBy" column="create_by"/>
+		<result property="createDate" column="create_date"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="updateDate" column="update_date"/>
+		<result property="remarks" column="remarks"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	
+	<select id="queryIdentity" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select r.* 
+		from (sys_role as r  left join sys_user_role as ur on r.id=ur.role_id)
+		left join sys_user as u on u.id = ur.user_id
+		where u.id=#{userId}
+	</select>
+</mapper>

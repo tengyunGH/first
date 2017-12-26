@@ -1,0 +1,85 @@
+body {
+		background-color : #6DCED7;
+/* 	background-image:url("../../images/bluesmile.jpg");相对登录界面jsp文件的地址 不是这个css文件 */
+/* 	color:#fff; */
+/* 	background-size:100% 100%; */
+}
+h1 {
+	margin-top : 20px;
+}
+
+/*  把所有按钮周围的margin去掉了 */
+.button-common {
+	display : inline-block;
+	margin : 0 15px 0 0;
+}
+
+.queryHeadline .rightInput {
+	width : 75px;
+}
+
+
+#thoughtTable {
+	display : none;
+	width : 90%;
+	margin : 10px auto;
+	color : black;
+	font-size : 13px;
+	border-collapse:collapse;
+}
+
+.add {
+	height : 40px;
+}
+
+.wholeData td {
+	border : 1px solid #ccc;
+}
+
+.createDataDiv {
+	
+}
+.createDataDiv, .headLine {
+	height : 20px;
+	light-height : 20px;
+	font-size : 15px;
+	padding : 7px;
+}
+.headLine {
+	text-align : center;
+
+}
+.thought {
+
+}
+code {
+	font-family : "楷体",normal;
+}
+
+.editShow {
+	display : none;
+}
+
+.operation .icon{
+	float : right;
+	margin : 0 20px 10px 0;
+}
+
+
+.editShow .button-common {
+	float : none;
+	margin-top : 10px;
+}
+
+
+
+
+
+
+
+
+/* 操作框中的checkbox先让他隐藏 当点击批量删除的时候让这个显示 */
+.operationTd input {
+	display : none;
+}
+

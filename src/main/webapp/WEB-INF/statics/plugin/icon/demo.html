@@ -1,0 +1,27 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="icon" href="statics/images/favicon.ico" />
+	<script src="statics/css/login.css" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="statics/plugin/icon/svg-symbols.css" />
+	<title>svg图标的用法</title>
+</head>
+<body>
+	<div>
+   		<svg class="icon"><use xlink:href="statics/plugin/icon/svg-symbols.svg#delete"/></svg>
+   		<svg class="icon"><use xlink:href="statics/plugin/icon/svg-symbols.svg#save"/></svg>
+   		<svg class="icon"><use xlink:href="statics/plugin/icon/svg-symbols.svg#add"/></svg>
+   		<svg class="icon"><use xlink:href="statics/plugin/icon/svg-symbols.svg#edit"/></svg>
+	</div>
+</body>
+</html>
+<!-- 
+做法
+在我收藏的那个网页里下载我需要的svg图片
+在d:/npm目录下新建文件夹assets根据那个我收藏的网页的步骤做 生成的svg-sprites.css和svg-sprites.svg文件拷贝到
+项目里面，在css文件中根据需要写这些样式，svg文件中的id可以根据自己的需要更改
+在html页面根据上面的写法写就OK了
+
+
+刚发现 在我收藏的那个网站山更可以改变这个定制的图片的样式 比如大小 类前缀 颜色什么的 在安哥preference里面 太好了
+   -->
