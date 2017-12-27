@@ -72,10 +72,10 @@
 						<td class="addTd">
 							<div class="buttonDiv">
 								<button class="button-common" onclick="editShow()">
-									<svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#edit-white"/></svg>编辑
+									<svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#arrangeThought-white"/></svg>管理
 								</button>
 								<button class="button-common" onclick="add()">
-									<svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#add-white"/></svg>添加
+									<svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#addThought-white"/></svg>添加
 								</button>
 							</div>
 						</td>
@@ -86,8 +86,10 @@
 							<div class="createDataDiv">{{item.createDate}}</div>
 							<div class="headLine" >{{item.headLine}}</div>
 							<div class="thought" ><code>{{item.thought}}</code></div>
-							<div class=operation>
-								<svg class="icon" onclick="edit(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#edit"/></svg>
+							<div class=operation	>
+<!-- 								<svg class="icon" onclick="edit(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#edit"/></svg> -->
+								<svg class="icon" onclick="message(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#bubble"/></svg>
+								<svg class="icon" onclick="editCommentary(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#editCommentary"/></svg>
 							</div>
 						</td>
 						<td class="editShow">

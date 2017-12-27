@@ -152,15 +152,17 @@ function edit(tag) {
 	});
 }
 
+
+//点击编辑按钮 每条记录后出现checkbox 还有一些其他的div什么的都出现
 function editShow() {
 	$(".editShow").show();
 	$(".editShow").css({"width":"30px","text-align":"center"});
 }
-
+//点击顶部的编辑按钮后  完成了批量删除后 让不该出现的再次隐藏
 function editHide() {
 	$(".editShow").hide();
 }
-
+// 批量删除的点击事件
 function deleteMutil() {
 	var ids = new Array();
 	for(var i = 0; i < vm.checkValue.length; i++) {
@@ -181,6 +183,7 @@ function deleteMutil() {
 		success : function(result) {
 			if(result != null) {
 				if(result.code == "200") {
+					//	删除成功，重新查询，隐藏checkbox和其余的div				
 					layer.alert("",{content : result.message, icon : 1});
 					query();
 					editHide();
@@ -198,7 +201,29 @@ function deleteMutil() {
 		}
 	});
 }
-
+//点击编辑后取消的点击事件
 function restore() {
 	$(".editShow").hide();
 }
+
+//每条thought下面有一个评论的图标 点击可以查看这条Thought的所有评论 按时间排序
+function message(tag) {
+//	获取当前的Thought的顺序 i-1  然后获取他的id
+	var i = 0;
+	$(tag).parent().parent.parent().prevAll().each(function() {
+		i++;
+	});
+	
+	var data = {
+			"thoughtId" : vm.wholeData[i-1].id
+	};
+	$.ajax({
+		
+	});
+	
+	
+	
+}
+
+
+

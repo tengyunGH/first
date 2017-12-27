@@ -3,6 +3,8 @@ package com.tengyun.modules.ordinaryuser.mythought.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.tengyun.modules.ordinaryuser.mythought.entity.Thought;
+
 /**
  * Thought接口实现
  * @author x67658

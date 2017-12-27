@@ -26,7 +26,7 @@ public class ThoughtServiceImpl implements ThoughtService<Thought>{
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
-	private ThoughtDao<Thought> thoughtDao;
+	private ThoughtDao thoughtDao;
 	
 	@Override
 	public List<Thought> querySomebody(Map<String,Object> param) {

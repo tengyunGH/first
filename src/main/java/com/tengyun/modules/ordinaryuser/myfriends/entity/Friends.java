@@ -9,8 +9,8 @@ import java.util.Date;
  */
 public class Friends {
 	
-	private int userId;							//主动添加好友的那一方的用户id
-	private int friendId;							//被申请添加好友的那一方的用户id
+	private Long userId;							//主动添加好友的那一方的用户id
+	private Long friendId;							//被申请添加好友的那一方的用户id
 	private String memoName;				//申请添加好友时设置的备注名称
 	private String applyMessage;			//申请信息
 	private Date applyDate;					//申请时间
@@ -19,16 +19,16 @@ public class Friends {
 	private Date refuseDate;					//申请拒绝时间
 	private String state;							//0表示是朋友关系 1表示已删除好友
 	
-	public int getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	public int getFriendId() {
+	public Long getFriendId() {
 		return friendId;
 	}
-	public void setFriendId(int friendId) {
+	public void setFriendId(Long friendId) {
 		this.friendId = friendId;
 	}
 	public String getMemoName() {
