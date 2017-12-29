@@ -81,7 +81,7 @@
 						</td>
 						<td class="arrangeShow"></td>
 					</tr>
-					<tr class="wholeData" v-for="(item,index) in wholeData">
+					<tr class="wholeData" v-for="(item, fatherIndex) in wholeData">
 						<td class="dataTd">
 							<div class="createDataDiv">
 								{{item.createDate}}
@@ -90,25 +90,27 @@
 							<div class="headLine" >{{item.headLine}}</div>
 							<div class="thought" ><code>{{item.thought}}</code></div>
 							<div class=operation	>
-								<svg class="icon" onclick="readCommentary(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#readCommentary"/></svg>
-								
-								<svg class="icon" onclick="editCommentary(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#editCommentary"/></svg>
+								<svg class="icon" v-on:click="readCommentary(fatherIndex)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#readCommentary"/></svg>
+								<svg class="icon" v-on:click="editCommentary(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#editCommentary"/></svg>
 							</div>
 							<div class="commentaryDiv">
 									<table class="commentaryTable">
-									<tr><td>当前评论</td></tr>
-										<tr v-for="(item,index) in commentary">
-											<td>
-												<div>{{item.commentator}}</div>
-												<div>{{item.commentary}}</div>
-												<div>{{item.createDate}}</div>
+									<tr>
+										<td v-for="(commentary, childIndex) in commentarys[fatherIndex]">
+<!-- 											<td> -->
+												<div>
+														<span class="commentator">{{commentary.commentator}}</span>
+														<span class="createDate">{{commentary.createDate}}</span>
+												</div>
+												<div>{{commentary.commentary}}</div>
+												<hr/>
 											</td>
 										</tr>
 									</table>
 								</div>
 						</td>
 						<td class="arrangeShow">
-							<input type="checkbox" v-model="checkValue[index]" value="" name=""/>
+							<input type="checkbox" v-model="checkValue[fatherIndex]" value="" name=""/>
 						</td>
 					</tr>
 					<tr class="arrangeShow">

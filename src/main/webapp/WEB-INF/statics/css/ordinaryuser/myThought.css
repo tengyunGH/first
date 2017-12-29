@@ -78,16 +78,28 @@ code {
 }
 
 /* 点击看评论小图标的时候出现的 */
-.commentaryDiv {
-	display : none;
-}
+/* .commentaryDiv { */
+/* 	display : none; */
+/* } */
 .commentaryTable {
 	
 }
 
+.commentaryTable td {
+	border : 0 solid;
+	color : black;
+	font-size : 13px;
+}
 
-
-
+.commentator {
+	float : left;
+}
+.createDate {
+	float : right;
+}
+.createDate, .commentator {
+	margin : 0 20px;
+}
 
 
 

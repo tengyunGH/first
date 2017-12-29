@@ -38,7 +38,7 @@ public class CommentaryController {
 		//获取当前用户的userId
 		Object myUserId = SecurityUtils.getSubject().getSession().getAttribute("userId");
 		//要查询的不是当前用户的Thought或者commentary的评论 所以可见性要设置为所有人可见
-		if(!myUserId.equals(userId)) {
+		if(!myUserId.toString().equals(userId.toString())) {
 			params.put("visibility", "1");
 		}
 		if(thoughtId != null) {

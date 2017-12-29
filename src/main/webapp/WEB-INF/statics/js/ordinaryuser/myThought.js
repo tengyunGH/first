@@ -1,10 +1,13 @@
 
 $(document).ready(function() {
+//	$(".commentaryDiv").hide();
 	//页面加载时获取数据库中所有当前用户自己的Thought并通过vue渲染到表格中
 	/*初始加载时没有任何查询条件 */
 	queryCommon('/htmlintegration/thought/queryMine');
 	//显示加载了数据的表格
 	$("#thoughtTable").show();
+	
+	
 });
 //创建时间的layerDate
 laydate.render({
@@ -29,31 +32,63 @@ var vm = new Vue({
 	data : {
 		//用于记录所有checkbox的选中状态
 		checkValue : [],
-		//wholeData初始化为空 存放查询回来的记录
+		//wholeData初始化为空 存放查询回来的记录 
 		wholeData : [],
-		//存放某条Thought的评论
-		commentary : []
+		commentarys : []
+	},
+	methods : {
+		readCommentary : function(index) {
+//			获取当前的Thought的顺序  i-1  然后获取他的id
+//			var index = 0;
+//			$(tag).parent().parent().parent().prevAll().each(function() {
+//				index++;
+//			});
+			debugger
+			//准备传输的数据
+			var data = {
+					"thoughtId" : vm.wholeData[index].id,
+					"userId" : vm.wholeData[index].userId
+			};       
+			debugger
+			//查询
+			$.ajax({
+				url : '/htmlintegration/commentary/query',
+				type : 'POST',
+				dataType : 'json',
+				async : false,
+				data : data,
+				success : function(result) {
+					if(result != null) {
+						if(result.code == '200') {
+							var  commentarys = [];
+							for(var i = 0;i < result.data.length; i++) {
+								result.data[i].createDate = ChangeDateFormat(result.data[i].createDate);
+//								vm.wholeData[index].commentarys.push(result.data[i]);
+								vm.commentarys[index] = new Array();
+							    vm.commentarys[index].push(result.data[i]);
+							}
+//							vm.wholeData[index].commentarys = new Array();
+							
+//							vm.$set(vm.wholeData[index].commentarys, commentarys);
+//							$(".commentaryDiv").eq(index).show();
+						} else {
+							layer.alert("", {content:result.message,offset:'100px'});
+						}
+					} else {
+						layer.alert("", {content:"加载失败，请重新加载！Result为null",offset:'100px'});
+					}
+				},
+				error : function() {
+					layer.alert("", {content:"加载失败，请重新加载！error!",offset:'100px'}); 
+				}
+			});
+		}
 	}
 });
 
 //获取vue实例 在编辑时弹出的框中需要用到
 function getVm() {
 	return vm;
-}
-
-//将数据库中存放的时间date格式的字符串变成一个YYYY-MM-dd HH:mm:ss的格式
-function ChangeDateFormat(val) {
-    if (val != null) {
-        var date = new Date(val);
-        //月份为0-11，所以+1，月份小于10时补个0
-        var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-        var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-        var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-        var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-        var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-        return date.getFullYear() + "-" + month + "-" + currentDate  + "  "+ hour + " : " + minute + " : " + second;
-    }
-    return "";
 }
 
 //本页面会涉及很多要将自己的thought查出来的操作 所以将这个抽出来作为一个公共部分 传入的参数就是要查询的参数
@@ -76,7 +111,10 @@ function queryCommon(url, data) {
 			 			//请求到数据后 判断code为200 并且要求data不为NULL（null和undefined）
 			 			result.data[i].createDate  = ChangeDateFormat(result.data[i].createDate);
 			 			result.data[i].updateDate  = ChangeDateFormat(result.data[i].updateDate);
+//			 			vm.wholeData[i] = new Object();
+//			 			vm.$set(vm.wholeData[i].thought, result.data[i]);
 			 			vm.wholeData.push(result.data[i]);
+			 			//vm.wholeData[i].commentarys = [];
 			 			//将隐藏的checkbox初始渲染为不选中状态
 			 			vm.checkValue.push(false);
 			 		}
@@ -207,43 +245,7 @@ function restore() {
 
 //看评论  根据当前的thought的id查这条Thought的评论
 function readCommentary(tag) {
-//	获取当前的Thought的顺序  i-1  然后获取他的id
-	var i = 0;
-	$(tag).parent().parent().parent().prevAll().each(function() {
-		i++;
-	});
-	debugger
-	//准备传输的数据
-	var data = {
-			"thoughtId" : vm.wholeData[i-1].id,
-			"userId" : vm.wholeData[i-1].userId
-	};
-	//查询
-	$.ajax({
-		url : '/htmlintegration/commentary/query',
-		type : 'POST',
-		dataType : 'json',
-		async : false,
-		data : data,
-		success : function(result) {
-			if(result != null) {
-				if(result.code == '200') {
-					vm.commentary = [];
-					for(var i = 0;i < result.data.length; i++) {
-						vm.commentary.push(result.data[i]);
-					}
-					$(".commentaryDiv").show();
-				} else {
-					layer.alert("", {content:result.message,offset:'100px'});
-				}
-			} else {
-				layer.alert("", {content:"加载失败，请重新加载！Result为null",offset:'100px'});
-			}
-		},
-		error : function() {
-			layer.alert("", {content:"加载失败，请重新加载！error!",offset:'100px'}); 
-		}
-	});
+
 	
 }
 
