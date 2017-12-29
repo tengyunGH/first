@@ -13,12 +13,12 @@ h1 {
 	display : inline-block;
 	margin : 0 15px 0 0;
 }
-
+/* 让input框短一点 */
 .queryHeadline .rightInput {
 	width : 75px;
 }
 
-
+/* 渲染评论的表格 先开始的时候隐藏 等数据加载完成后show */
 #thoughtTable {
 	display : none;
 	width : 90%;
@@ -27,18 +27,19 @@ h1 {
 	font-size : 13px;
 	border-collapse:collapse;
 }
-
+/* 渲染Thought的第一行有添加和管理zhe按钮 */
 .add {
 	height : 40px;
 }
-
+/* 装载Thought的表格中的所有td */
 .wholeData td {
 	border : 1px solid #ccc;
 }
-
+/* 放Thought的创建时间的div，右边包含一个续写按钮 */
 .createDataDiv {
 	
 }
+/* Thought的创建时间和Thought的标题 */
 .createDataDiv, .headLine {
 	height : 20px;
 	light-height : 20px;
@@ -49,37 +50,56 @@ h1 {
 	text-align : center;
 
 }
+/* 放thought的div让他里面的code标签居中 */
 .thought {
-
+	text-align : center;
+	margin : 10px;
 }
 code {
 	font-family : "楷体",normal;
 }
-
-.editShow {
+/* 点击管理按钮的时候，才出现的元素 */
+.arrangeShow {
 	display : none;
 }
-
+/* 对每条Thought的所有操作里面的小图标的样式 */
 .operation .icon{
 	float : right;
 	margin : 0 20px 10px 0;
 }
-
-
-.editShow .button-common {
+/* 点击管理后页面最下方的那两个按钮的样式 */
+.arrangeShow .button-common {
 	float : none;
 	margin-top : 10px;
 }
-
-
-
-
-
-
-
-
 /* 操作框中的checkbox先让他隐藏 当点击批量删除的时候让这个显示 */
 .operationTd input {
 	display : none;
 }
+
+/* 点击看评论小图标的时候出现的 */
+.commentaryDiv {
+	display : none;
+}
+.commentaryTable {
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

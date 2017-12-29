@@ -39,28 +39,28 @@
 		var i = window.parent.getIndex();
 		var vm = window.parent.getVm();
 		
-		// 获取标识 标识是添加的还是编辑的 
+		// 获取标识 标识是添加的还是续写的 
 		var flag = window.parent.getFlag();
 	
 		$(document).ready(function() {
-			if (flag == "edit") {
+			if (flag == "writing") { 
 				$(".publish").text("保存");
 // 				debugger
-				$("input[name='headLine']").val(vm.wholeData[i].headLine);
+				$("input[name='headLine']").val(vm.wholeData[i].headLine + '\n' +"--------------------------------------------------------------"');
 				$("textarea[name='thought']").val(vm.wholeData[i].thought);
 			}
 		});
 	
 		function save() {
 			var data  = {};
-			if (flag == "edit") {
+			if (flag == "writing") {
 				data = {
 						"headLine" : $("input[name='headLine']").val(),
 						"thought" : $("textarea[name='thought']").val(),
 						"id" : vm.wholeData[i].id,
 						"visibility" : $("select[name='visibility']").val()
 				};
-				saveData("/htmlintegration/thought/editThought",data);
+				saveData("/htmlintegration/thought/writingThought",data);
 			} else if(flag == "add"){
 				data = {
 						"headLine" : $("input[name='headLine']").val(),

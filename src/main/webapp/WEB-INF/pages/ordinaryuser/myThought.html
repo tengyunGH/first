@@ -57,7 +57,7 @@
 				</div>
 				<div class="buttonDiv">
 					<button class="button-common query" onclick="query()">
-						<svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#search-white"/></svg>查询
+						<svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#query-white"/></svg>查询
 					</button>
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 					<tr class="add">
 						<td class="addTd">
 							<div class="buttonDiv">
-								<button class="button-common" onclick="editShow()">
+								<button class="button-common" onclick="arrangeShow()">
 									<svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#arrangeThought-white"/></svg>管理
 								</button>
 								<button class="button-common" onclick="add()">
@@ -79,24 +79,39 @@
 								</button>
 							</div>
 						</td>
-						<td class="editShow"></td>
+						<td class="arrangeShow"></td>
 					</tr>
 					<tr class="wholeData" v-for="(item,index) in wholeData">
 						<td class="dataTd">
-							<div class="createDataDiv">{{item.createDate}}</div>
+							<div class="createDataDiv">
+								{{item.createDate}}
+								<button class="button-common" onclick="writing(this)" style="float:right">续写</button>
+							</div>
 							<div class="headLine" >{{item.headLine}}</div>
 							<div class="thought" ><code>{{item.thought}}</code></div>
 							<div class=operation	>
-<!-- 								<svg class="icon" onclick="edit(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#edit"/></svg> -->
-								<svg class="icon" onclick="message(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#bubble"/></svg>
+								<svg class="icon" onclick="readCommentary(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#readCommentary"/></svg>
+								
 								<svg class="icon" onclick="editCommentary(this)"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#editCommentary"/></svg>
 							</div>
+							<div class="commentaryDiv">
+									<table class="commentaryTable">
+									<tr><td>当前评论</td></tr>
+										<tr v-for="(item,index) in commentary">
+											<td>
+												<div>{{item.commentator}}</div>
+												<div>{{item.commentary}}</div>
+												<div>{{item.createDate}}</div>
+											</td>
+										</tr>
+									</table>
+								</div>
 						</td>
-						<td class="editShow">
+						<td class="arrangeShow">
 							<input type="checkbox" v-model="checkValue[index]" value="" name=""/>
 						</td>
 					</tr>
-					<tr class="editShow">
+					<tr class="arrangeShow">
 						<td>
 							<button class="button-common" onclick="deleteMutil()">
 								<svg class="icon"><use xlink:href="../../statics/plugin/icon/svg-symbols.svg#delete-white"/></svg>删除

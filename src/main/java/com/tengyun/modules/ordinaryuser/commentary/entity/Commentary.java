@@ -13,9 +13,11 @@ public class Commentary {
 	private String commentary;		//评论内容
 	private String type;						//评论类型 1表示给thought评论 2表示给commentary评论
 	private Long thoughtId;				//评论的thought的id
-	private Long commentatorId;		//评论的commentary的id
+	private Long commentaryId;		//评论的commentary的id
+	private Long commentatorId;		//评论人的id
+	private String commentator;		//评论人的名字
 	private Date createDate;				//评论时间
-	private Date delDate;					//删除时间
+	private Date deleteDate; 					//删除时间
 	private String state;						//状态位 默认为零
 	private String visibility;				//评论的可见性 0表示仅评论者和被评论者可见 1表示所有人均可见
 	
@@ -59,11 +61,11 @@ public class Commentary {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public Date getDelDate() {
-		return delDate;
+	public Date getDeleteDate() {
+		return deleteDate;
 	}
-	public void setDelDate(Date delDate) {
-		this.delDate = delDate;
+	public void setDeleteDate(Date deleteDate) {
+		this.deleteDate = deleteDate;
 	}
 	public String getState() {
 		return state;
@@ -78,6 +80,22 @@ public class Commentary {
 
 	public void setVisibility(String visibility) {
 		this.visibility = visibility;
+	}
+
+	public String getcommentator() {
+		return commentator;
+	}
+
+	public void setcommentator(String commentator) {
+		this.commentator = commentator;
+	}
+
+	public Long getCommentaryId() {
+		return commentaryId;
+	}
+
+	public void setCommentaryId(Long commentaryId) {
+		this.commentaryId = commentaryId;
 	}
 	
 }

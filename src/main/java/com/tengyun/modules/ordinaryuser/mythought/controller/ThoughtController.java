@@ -232,7 +232,7 @@ public class ThoughtController {
 		return result;
 	}
 	
-	@RequestMapping(value="editThought")
+	@RequestMapping(value="writingThought")
 	@ResponseBody
 	public Map<String,Object> editThought(String headLine, String thought, String id, String visibility) {
 		Map<String,Object> result = new HashMap<String,Object>();

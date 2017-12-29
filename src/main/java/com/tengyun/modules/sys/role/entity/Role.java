@@ -25,8 +25,8 @@ public class Role{
 	protected Date createDate;//创建日期
 	protected String updateBy;// 更新者Id
 	protected Date updateDate;//更新日期
-	protected String state;// 状态标记
-	protected String remarks;//备注
+	protected String state; // 状态标记
+	protected String remarks;  //备注
 	
 	public Role() {
 		super();

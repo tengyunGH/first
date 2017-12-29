@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tengyun.modules.ordinaryuser.commentary.dao.CommentaryDao">
+	<resultMap type="com.tengyun.modules.ordinaryuser.commentary.entity.Commentary" id="BaseResultMap">
+		<id property="id" column="id"/>
+		<result property="commentary" column="commentary"/>
+		<result property="type" column="type"/>
+		<result property="thoughtId" column="thought_id"/>
+		<result property="commentaryId" column="commentary_id"/>
+		<result property="commentatorId" column="commentator_id"/>
+		<result property="commentator" column="commentator"/>
+		<result property="createDate" column="create_date"/>
+		<result property="deleteDate" column="delete_date"/>
+		<result property="state" column="state"/>
+		<result property="visibility" column="visibility"/>
+	</resultMap>
+	
+	<sql id="whereChoose">
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="type != null and type != ''">
+				and type=#{type}
+			</if>
+			<if test="thoughtId != null and thoughtId != ''">
+				and thought_id=#{thoughtId}
+			</if>
+			<if test="commentaryId != null and commentaryId != ''">
+				and commentary_id=#{commentaryId}
+			</if>
+			<if test="commentator != null and commentator != ''">
+				and commentator=#{commentator}
+			</if>
+			<if test="createDate != null">
+				and create_date=#{createDate}
+			</if>
+			<if test="state != null and state != ''">
+				and state=#{state}
+			</if>
+			<if test="visibility != null and visibility != ''">
+				and visibility=#{visibility}
+			</if>
+			and state='0'
+		</trim>
+	
+	</sql>
+	
+	<select id="queryByParam" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select * from commentary
+		<include refid="whereChoose"/>
+	</select>
+	
+	</mapper>
+	

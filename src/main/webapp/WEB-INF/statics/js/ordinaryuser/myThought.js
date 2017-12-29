@@ -30,7 +30,9 @@ var vm = new Vue({
 		//用于记录所有checkbox的选中状态
 		checkValue : [],
 		//wholeData初始化为空 存放查询回来的记录
-		wholeData : []
+		wholeData : [],
+		//存放某条Thought的评论
+		commentary : []
 	}
 });
 
@@ -54,7 +56,7 @@ function ChangeDateFormat(val) {
     return "";
 }
 
-//本页面会涉及很多要将自己的评论查出来的操作 所以将这个抽出来作为一个公共部分 传入的参数就是要查询的参数
+//本页面会涉及很多要将自己的thought查出来的操作 所以将这个抽出来作为一个公共部分 传入的参数就是要查询的参数
 function queryCommon(url, data) {
 	 //查询将数据渲染出来
 	 
@@ -119,31 +121,28 @@ function add() {
 	});
 }
 
-//当点击某条记录的编辑和修改时 获取当前点击的顺序
+
 var index = 0;
 function getIndex() {
 	return index-1;
 }
-function computeIndex(tag) {
-	index = 0
+
+// 每条记录的续写功能
+function writing(tag) {
+	//当点击某条记录的续写时 获取当前点击的顺序 然后在续写的那个layer弹出层里获得index 进而获取所需数据
+	index = 0;
 	$(tag).parent().parent().parent().prevAll().each(function() {
 		index ++;
 	});
-//	debugger
-}
-
-// 每条记录后面的编辑按钮
-function edit(tag) {
-	
-	computeIndex(tag);
-	flag = "edit";
+	//做标志，标明，这是续写
+	flag = "writing";
 	layer.open({
 		type : 2,  //0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
 		area : ['650px','350px'],
 		fix : false,
 		offset: '100px',
 		maxmin : true,
-		title : "修改", 
+		title : "续写", 
 		shade : 0.4,   //默认是0.3透明度的黑色背景（'#000'）。如果你想定义别的颜色，可以shade: [0.8, '#393D49']；如果你不想显示遮罩，可以shade: 0
 		content : '/htmlintegration/pages/ordinaryuser/thought/addThought.html' //弹出层是个iframe，这里就写iframe的url
 //		end : function() {//层销毁的回调
@@ -153,14 +152,14 @@ function edit(tag) {
 }
 
 
-//点击编辑按钮 每条记录后出现checkbox 还有一些其他的div什么的都出现
-function editShow() {
-	$(".editShow").show();
-	$(".editShow").css({"width":"30px","text-align":"center"});
+//点击管理按钮 每条记录后出现checkbox 还有一些其他的div什么的都出现
+function arrangeShow() {
+	$(".arrangeShow").show();
+	$(".arrangeShow").css({"width":"30px","text-align":"center"});
 }
 //点击顶部的编辑按钮后  完成了批量删除后 让不该出现的再次隐藏
 function editHide() {
-	$(".editShow").hide();
+	$(".arrangeShow").hide();
 }
 // 批量删除的点击事件
 function deleteMutil() {
@@ -203,25 +202,48 @@ function deleteMutil() {
 }
 //点击编辑后取消的点击事件
 function restore() {
-	$(".editShow").hide();
+	$(".arrangeShow").hide();
 }
 
-//每条thought下面有一个评论的图标 点击可以查看这条Thought的所有评论 按时间排序
-function message(tag) {
-//	获取当前的Thought的顺序 i-1  然后获取他的id
+//看评论  根据当前的thought的id查这条Thought的评论
+function readCommentary(tag) {
+//	获取当前的Thought的顺序  i-1  然后获取他的id
 	var i = 0;
-	$(tag).parent().parent.parent().prevAll().each(function() {
+	$(tag).parent().parent().parent().prevAll().each(function() {
 		i++;
 	});
-	
+	debugger
+	//准备传输的数据
 	var data = {
-			"thoughtId" : vm.wholeData[i-1].id
+			"thoughtId" : vm.wholeData[i-1].id,
+			"userId" : vm.wholeData[i-1].userId
 	};
+	//查询
 	$.ajax({
-		
+		url : '/htmlintegration/commentary/query',
+		type : 'POST',
+		dataType : 'json',
+		async : false,
+		data : data,
+		success : function(result) {
+			if(result != null) {
+				if(result.code == '200') {
+					vm.commentary = [];
+					for(var i = 0;i < result.data.length; i++) {
+						vm.commentary.push(result.data[i]);
+					}
+					$(".commentaryDiv").show();
+				} else {
+					layer.alert("", {content:result.message,offset:'100px'});
+				}
+			} else {
+				layer.alert("", {content:"加载失败，请重新加载！Result为null",offset:'100px'});
+			}
+		},
+		error : function() {
+			layer.alert("", {content:"加载失败，请重新加载！error!",offset:'100px'}); 
+		}
 	});
-	
-	
 	
 }
 

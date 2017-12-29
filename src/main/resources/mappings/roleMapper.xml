@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tengyun.modules.sys.role.dao.RoleDao">
+
 	<resultMap type="com.tengyun.modules.sys.role.entity.Role" id="BaseResultMap">
 		<id property="id" column="id" />
 		<result property="name" column="name"/>
@@ -20,4 +21,5 @@
 		left join sys_user as u on u.id = ur.user_id
 		where u.id=#{userId}
 	</select>
+	
 </mapper>

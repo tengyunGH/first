@@ -252,10 +252,6 @@ body {
 }
 
 
-/* 放thought的div让他里面的code标签居中 */
-.thought {
-	text-align : center;
-}
 /* 放存入数据库中的文字，要将换行符保留。文字靠右 */
 code {
 	white-space: pre-line;
