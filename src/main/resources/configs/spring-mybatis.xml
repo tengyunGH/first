@@ -14,11 +14,6 @@
     
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">  
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />  
-        <property name="url" value="jdbc:mysql://localhost:3306/zhy" />  
-<!--         <property name="url" value="jdbc:mysql://10.12.197.91:3306/netpro_5.0_e" />   -->
-        <property name="username" value="root" />  
-<!--         <property name="password" value="H3cJdlkTg()001" />   -->
-		<property name="password" value="tengyun" /> 
         <!-- 初始化连接大小 -->  
         <property name="initialSize" value="0"></property>  
         <!-- 连接池最大数量 -->  
